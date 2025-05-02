@@ -7,7 +7,6 @@ public class Activity {
     
     @Id
     private String id;
-
     private String activityName;
 
     public Activity(String id, String activityName) {
@@ -23,11 +22,11 @@ public class Activity {
         this.id = id;
     }
 
-    public String getActName() {
+    public String getActivityName() {
         return activityName;
     }
 
-    public void setActName(String activityName) {
+    public void setActivityName(String activityName) {
         this.activityName = activityName;
     }
 

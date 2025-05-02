@@ -30,4 +30,11 @@ public class ActivityService {
             return null;
         }
     }
+
+    public Activity editActivityById(String id, Activity activity) {
+        activityRepository.findAndSetNameById(id, activity.getActivityName());
+        Optional<Activity> newActivity = activityRepository.findById(id);
+
+        return newActivity.get();
+    }
 }
