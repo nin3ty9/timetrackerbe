@@ -3,6 +3,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 @Document(collection = "actSessions")
 public class ActSession {
@@ -10,17 +11,18 @@ public class ActSession {
     @Id
     private String sessionId;
 
-    private String activityId;
+    @DocumentReference
+    private Activity activity;
 
     private LocalDateTime actStart;
     private LocalDateTime actEnd;
     private Duration duration;
 
-    public ActSession(String sessionId, String activityId, LocalDateTime actStart,
+    public ActSession(String sessionId, Activity activity, LocalDateTime actStart,
     LocalDateTime actEnd, Duration duration) {
     
         this.sessionId = sessionId;
-        this.activityId = activityId;
+        this.activity = activity;
         this.actStart = actStart;
         this.actEnd = actEnd;
         this.duration = duration;
@@ -34,12 +36,12 @@ public class ActSession {
         this.sessionId = sessionId;
     }
 
-    public String getActivityId() {
-        return activityId;
+    public Activity getActivity() {
+        return activity;
     }
 
-    public void setActivityId(String activityId) {
-        this.activityId = activityId;
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 
     public LocalDateTime getActStart() {
