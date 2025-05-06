@@ -47,4 +47,10 @@ public class ActSessionController {
     public Map<String, Long> getTotalStatsByActivity() {
         return actSessionService.getTotalStatsByActivity();
     }
+
+    @GetMapping("/api/actSessions/totalStatsByWeek")
+    public Map<String, Map<String, Long>> getTotalStatsByWeek() {
+    return actSessionService.getTotalStatsByWeek();
+}
+
 }

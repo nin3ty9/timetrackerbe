@@ -1,6 +1,10 @@
 package com.timetrackerbe.timetrackerbe.services;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.WeekFields;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -63,10 +67,10 @@ public class ActSessionService {
     }
 
     public Map<String, Long> getTotalStatsByActivity() {
-        // Hämtar alla actSessions
+        // Hämtar alla actSessions:
         List<ActSession> actSessions = actSessionRepository.findAll();
         
-        // Grupperar durations
+        // Grupperar durations:
         Map<String, Long> totalStats = actSessions.stream()
             .collect(Collectors.groupingBy(
                 actSession -> actSession.getActivity().getActivityName(),
@@ -74,6 +78,33 @@ public class ActSessionService {
             ));
         
         return totalStats;
+    }
+
+    //MEtod för att få veckonummer:
+    private String getWeekOfYear(LocalDateTime actStart) {
+        LocalDate localDate = actStart.toLocalDate();
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        int weekNumber = localDate.get(weekFields.weekOfYear());
+        int year = localDate.getYear();
+    
+        return "Week " + weekNumber + " of " + year;
+    }
+
+    public Map<String, Map<String, Long>> getTotalStatsByWeek() {
+        // Hämtar alla actSessions:
+        List<ActSession> actSessions = actSessionRepository.findAll();
+        
+        // Grupperar durations per vecka och aktivitet:
+        Map<String, Map<String, Long>> totalStatsByWeek = actSessions.stream()
+            .collect(Collectors.groupingBy(
+                actSession -> getWeekOfYear(actSession.getActStart()), // Grupperar per vecka
+                Collectors.groupingBy(
+                    actSession -> actSession.getActivity().getActivityName(), // Grupperar per aktivitet
+                    Collectors.summingLong(ActSession::getDurationSeconds) // Adderar durations
+                )
+            ));
+    
+        return totalStatsByWeek;
     }
 }
     
