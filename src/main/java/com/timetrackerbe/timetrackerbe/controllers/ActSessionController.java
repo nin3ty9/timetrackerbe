@@ -1,5 +1,7 @@
 package com.timetrackerbe.timetrackerbe.controllers;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import com.timetrackerbe.timetrackerbe.models.ActSession;
@@ -39,5 +41,10 @@ public class ActSessionController {
     @PatchMapping("/api/actSession/{sessionId}")
     public ActSession editaActSessionById(@PathVariable String sessionId, @RequestBody ActSession actSession) {
         return actSessionService.editActSessionById(sessionId, actSession);
+    }
+
+    @GetMapping("/api/actSessions/totalStats")
+    public Map<String, Long> getTotalStatsByActivity() {
+        return actSessionService.getTotalStatsByActivity();
     }
 }

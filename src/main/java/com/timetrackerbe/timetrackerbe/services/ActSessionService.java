@@ -1,7 +1,10 @@
 package com.timetrackerbe.timetrackerbe.services;
 import java.time.Duration;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import com.timetrackerbe.timetrackerbe.models.ActSession;
 import com.timetrackerbe.timetrackerbe.models.Activity;
@@ -37,8 +40,12 @@ public class ActSessionService {
 
         actSession.setActivity(activity);
 
-        Duration calculatedDuration = Duration.between(actSession.getActStart(), actSession.getActEnd());
-        actSession.setDuration(calculatedDuration);
+        // Duration calculatedDuration = Duration.between(actSession.getActStart(), actSession.getActEnd());
+        // actSession.setDuration(calculatedDuration);
+
+        long calculatedDurationSeconds = Duration.between(actSession.getActStart(), actSession.getActEnd()).getSeconds();
+        actSession.setDurationSeconds(calculatedDurationSeconds);
+
         
         return actSessionRepository.save(actSession);
     }
@@ -49,10 +56,25 @@ public class ActSessionService {
 
         actSession.setActivity(activity);
 
-        Duration calculatedDuration = Duration.between(actSession.getActStart(), actSession.getActEnd());
-        actSession.setDuration(calculatedDuration);
+        long calculatedDurationSeconds = Duration.between(actSession.getActStart(), actSession.getActEnd()).getSeconds();
+        actSession.setDurationSeconds(calculatedDurationSeconds);
 
         return actSessionRepository.save(actSession);
     }
-    
+
+    public Map<String, Long> getTotalStatsByActivity() {
+        // Hämtar alla actSessions
+        List<ActSession> actSessions = actSessionRepository.findAll();
+        
+        // Grupperar durations
+        Map<String, Long> totalStats = actSessions.stream()
+            .collect(Collectors.groupingBy(
+                actSession -> actSession.getActivity().getActivityName(),
+                Collectors.summingLong(ActSession::getDurationSeconds)
+            ));
+        
+        return totalStats;
+    }
 }
+    
+

@@ -1,5 +1,4 @@
 package com.timetrackerbe.timetrackerbe.models;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,16 +15,16 @@ public class ActSession {
 
     private LocalDateTime actStart;
     private LocalDateTime actEnd;
-    private Duration duration;
+    private long durationSeconds;
 
     public ActSession(String sessionId, Activity activity, LocalDateTime actStart,
-    LocalDateTime actEnd, Duration duration) {
+    LocalDateTime actEnd, long durationSeconds) {
     
         this.sessionId = sessionId;
         this.activity = activity;
         this.actStart = actStart;
         this.actEnd = actEnd;
-        this.duration = duration;
+        this.durationSeconds = durationSeconds;
     }
 
     public String getSessionId() {
@@ -60,12 +59,12 @@ public class ActSession {
         this.actEnd = actEnd;
     }
 
-    public Duration getDuration() {
-        return duration;
+    public long getDurationSeconds() {
+        return durationSeconds;
     }
 
-    public void setDuration(Duration duration) {
-        this.duration = duration;
+    public void setDurationSeconds(long durationSeconds) {
+        this.durationSeconds = durationSeconds;
     }
 
     
