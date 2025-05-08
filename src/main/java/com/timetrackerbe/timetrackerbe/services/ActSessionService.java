@@ -70,7 +70,7 @@ public class ActSessionService {
         // Hämtar alla actSessions:
         List<ActSession> actSessions = actSessionRepository.findAll();
         
-        // Grupperar durations:
+        // Grupperar durations efter aktivitet:
         Map<String, Long> totalStats = actSessions.stream()
             .collect(Collectors.groupingBy(
                 actSession -> actSession.getActivity().getActivityName(),
@@ -80,7 +80,7 @@ public class ActSessionService {
         return totalStats;
     }
 
-    //MEtod för att få veckonummer:
+    //Metod för att få veckonummer:
     private String getWeekOfYear(LocalDateTime actStart) {
         LocalDate localDate = actStart.toLocalDate();
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
