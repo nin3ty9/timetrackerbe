@@ -1,8 +1,7 @@
 package com.timetrackerbe.timetrackerbe.controllers;
 import java.util.List;
 import java.util.Map;
-
-import org.springframework.web.bind.annotation.CrossOrigin;
+//import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import com.timetrackerbe.timetrackerbe.models.ActSession;
 import com.timetrackerbe.timetrackerbe.services.ActSessionService;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 public class ActSessionController {
     
     private final ActSessionService actSessionService;
