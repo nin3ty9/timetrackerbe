@@ -8,5 +8,7 @@ RUN ./mvnw clean install -DskipTests
 FROM eclipse-temurin:21-jre-jammy
 WORKDIR /opt/app
 EXPOSE 8080
-COPY --from=builder /opt/app/target/*.jar /opt/app/*.jar
-ENTRYPOINT ["java","-Dspring.profiles.active=prod", "-jar", "/opt/app/*.jar" ]
+# COPY --from=builder /opt/app/target/*.jar /opt/app/*.jar
+COPY --from=builder /opt/app/target/*.jar /opt/app/app.jar
+#ENTRYPOINT ["java","-Dspring.profiles.active=prod", "-jar", "/opt/app/*.jar" ]
+ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-jar", "/opt/app/app.jar"]
