@@ -12,9 +12,9 @@ The frontend is made with React + Typescript + Vite and the backend is a Spring 
 **Start by setting up the backend and database, then configure a few things here in the backend:**
 
 1. The CorsConfig is currently set up for production. To run locally, this line of the CorsConfig:
-**".allowedOrigins("https://lobster-app-gnq4y.ondigitalocean.app")"
+**".allowedOrigins("https://lobster-app-gnq4y.ondigitalocean.app")"**
 needs to be changed to:
-.allowedOrigins("*")**
+**".allowedOrigins("*")"**
 (or your chosen origin) in order to allow the locally run frontend to have access. 
 
 2. /src/main/resources/application.properties is set up for hidden environment variables for the database.
