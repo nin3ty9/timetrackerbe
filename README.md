@@ -20,9 +20,9 @@ needs to be changed to:
 2. /src/main/resources/application.properties is set up for hidden environment variables for the database.
 These lines:
 **"spring.data.mongodb.uri=${MONGO_URI}
-server.port=8080"
+server.port=8080"**
 need to be swapped for:
-"spring.data.mongodb.host=localhost
+**"spring.data.mongodb.host=localhost
 spring.data.mongodb.port=27017"** (or whichever port your MongoDB database i configured to)
 
 You can run the backend in your IDE with the play button while
